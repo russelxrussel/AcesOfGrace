@@ -33,21 +33,36 @@
             <div class="card">
                 <div class="card-header"><h5><span class="fas fa-truck text-primary"></span> Branch Item Delivery</h5></div>
                 <div class="card-body">
-                     <div id="alertErrorMessage" class="alert alert-danger alert-dismissible">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            <strong><span class="fas fa-exclamation"></span></strong> 
-                            <asp:Label runat="server" ID="lblErrorMessage"></asp:Label>
-                            </div> 
-
-
+                  
                     <div class="row">
                         <div class="col-md-5">
                            
                             <ul class="list-group">
-                                <li class="list-group-item active">Branch Details</li>
+                                <li class="list-group-item active">Input Details</li>
                                 <li class="list-group-item">
-                                    <asp:TextBox runat="server" ID="txtDeliveryDate" CssClass="form-control is-invalid calendarInput" placeholder="Delivery Date"></asp:TextBox></li>
-                                <li class="list-group-item"><asp:DropDownList runat="server" ID="ddBranches" CssClass="dropdown form-control is-invalid"></asp:DropDownList></li>
+                                    <div class="input-group mb-3">
+                                        <asp:TextBox runat="server" ID="txtDeliveryDate" CssClass="form-control is-invalid calendarInput" placeholder="Delivery Date"></asp:TextBox>    
+                                        <div class="input-group-append">
+                                            <asp:LinkButton runat="server" ID="lnkSearchDate" CssClass="btn btn-outline-success btn-sm"
+                                                data-toggle="tooltip" data-placement="bottom" title="Delivery Date" OnClick="lnkSearchDate_Click"><span class="fas fa-play-circle"></span></asp:LinkButton>
+                                        </div>
+                                    </div>
+                                </li>
+                                    
+                                <li class="list-group-item">
+                                    <asp:GridView runat="server" ID="gvScheduleBranch" CssClass="table table-sm table-responsive-md table-hover" GridLines="Horizontal" AutoGenerateColumns="false" OnRowCommand="gvScheduleBranch_RowCommand" OnRowDataBound="gvScheduleBranch_RowDataBound" >
+                                        <Columns>
+                                            <asp:BoundField DataField="BranchCode" />
+                                            <asp:BoundField DataField="BranchName" HeaderText="Branch" />
+
+                                            <asp:TemplateField>
+                                                <ItemTemplate>
+                                                    <asp:LinkButton runat="server" ID="lnkView" CssClass="btn btn-sm btn-outline-primary" CommandName="Select"><span class="fas fa-arrow-alt-circle-right" data-toggle="tooltip" data-placement="top" title="Insert Delivery"></span></asp:LinkButton>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                    </li>
                                <li class="list-group-item"><asp:TextBox runat="server" ID="txtRemarks" CssClass="form-control" TextMode="MultiLine" Rows="2" placeholder="Type Remarks"></asp:TextBox></li>
                                  
                                  </ul>

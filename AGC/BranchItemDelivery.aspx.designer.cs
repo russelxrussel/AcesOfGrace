@@ -22,15 +22,6 @@ namespace AGC {
         protected global::System.Web.UI.UpdatePanel upMain;
         
         /// <summary>
-        /// lblErrorMessage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorMessage;
-        
-        /// <summary>
         /// txtDeliveryDate control.
         /// </summary>
         /// <remarks>
@@ -40,13 +31,22 @@ namespace AGC {
         protected global::System.Web.UI.WebControls.TextBox txtDeliveryDate;
         
         /// <summary>
-        /// ddBranches control.
+        /// lnkSearchDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddBranches;
+        protected global::System.Web.UI.WebControls.LinkButton lnkSearchDate;
+        
+        /// <summary>
+        /// gvScheduleBranch control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvScheduleBranch;
         
         /// <summary>
         /// txtRemarks control.

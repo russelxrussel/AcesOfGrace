@@ -57,28 +57,30 @@ namespace AGC
         protected void btnEditItem_Click(object sender, EventArgs e)
         {
             //THIS WILL GET THE CELL VALUE OF SELECTED ROW IN GRIDVIEW VIA COMMAND WITHIN TEMPLATE FIELDS.
-            //var selEdit = (Control)sender;
-            //GridViewRow r = (GridViewRow)selEdit.NamingContainer;
-            //int branchID = Convert.ToInt32(r.Cells[0].Text);
-            //string selBranch = r.Cells[1].Text;
+            var selEdit = (Control)sender;
+            GridViewRow r = (GridViewRow)selEdit.NamingContainer;
+            int schedID = Convert.ToInt32(r.Cells[0].Text);
+            string selBranch = r.Cells[1].Text;
 
-            //CheckBox chkM = (CheckBox)r.Cells[2].FindControl("chkM");
-            //CheckBox chkT = (CheckBox)r.Cells[3].FindControl("chkT");
-            //CheckBox chkW = (CheckBox)r.Cells[4].FindControl("chkW");
-            //CheckBox chkTh = (CheckBox)r.Cells[5].FindControl("chkTh");
-            //CheckBox chkF = (CheckBox)r.Cells[6].FindControl("chkF");
-            //CheckBox chkSa = (CheckBox)r.Cells[7].FindControl("chkSa");
-            //CheckBox chkS= (CheckBox)r.Cells[8].FindControl("chkS");
-           
-            
-            
+            CheckBox chkM = (CheckBox)r.Cells[2].FindControl("chkM");
+            CheckBox chkT = (CheckBox)r.Cells[3].FindControl("chkT");
+            CheckBox chkW = (CheckBox)r.Cells[4].FindControl("chkW");
+            CheckBox chkTh = (CheckBox)r.Cells[5].FindControl("chkTh");
+            CheckBox chkF = (CheckBox)r.Cells[6].FindControl("chkF");
+            CheckBox chkSa = (CheckBox)r.Cells[7].FindControl("chkSa");
+            CheckBox chkS = (CheckBox)r.Cells[8].FindControl("chkS");
 
-            //oUtility.UPDATE_BRANCH_SCHEDULE(branchID, chkM.Checked, chkT.Checked, chkW.Checked, chkTh.Checked, chkF.Checked, chkSa.Checked, chkS.Checked, "TEST USER");
 
-            //lblMessageSuccess.Text = selBranch + " successfully updated.";
-            //ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#msgSuccessModal').modal('show');</script>", false);
 
-            //DisplayBranchSchedule();
+
+            // oUtility.UPDATE_BRANCH_SCHEDULE(branchID, chkM.Checked, chkT.Checked, chkW.Checked, chkTh.Checked, chkF.Checked, chkSa.Checked, chkS.Checked, "TEST USER");
+
+            oUtility.UPDATE_DELIVERY_BRANCH_SCHEDULE(schedID, chkM.Checked, chkT.Checked, chkW.Checked, chkTh.Checked, chkF.Checked, chkSa.Checked, chkS.Checked, "TEST USER");
+            lblSuccessMessage.Text = selBranch + " successfully updated.";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalSuccess').modal('show');</script>", false);
+
+            DisplayBranchSchedule();
+            txtSearch.Text = "";
         }
 
         protected void U_Search_Click(object sender, EventArgs e)

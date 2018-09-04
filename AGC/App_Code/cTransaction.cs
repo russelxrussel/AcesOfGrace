@@ -13,6 +13,28 @@ namespace AGC
         public cTransaction()
         { }
 
+
+        #region  "GET"
+        //public DataTable GET_BRANCH_DELIVERY(DateTime _dateDelivery)
+        //{
+        //    DataTable dt;
+
+        //    using (SqlConnection cn = new SqlConnection(CS))
+        //    {
+
+        //        using (SqlDataAdapter sqlDA = new SqlDataAdapter("[TRANSACTION].[spINSERT_BRANCH_DELIVERY]", cn))
+        //        {
+                    
+        //            cmd.Parameters.AddWithValue("@DELIVERYDATE", _dateDelivery);
+
+        //        }
+        //    }
+                    
+        //}
+
+
+
+        #endregion
         #region "CREATE - UPDATE"
 
         public void INSERT_BRANCH_DELIVERY(string _branchCode, string _deliveryNum, DateTime _deliveryDate, string _remarks,
@@ -40,6 +62,8 @@ namespace AGC
                 }
             }
         }
+
+
 
         #endregion
 

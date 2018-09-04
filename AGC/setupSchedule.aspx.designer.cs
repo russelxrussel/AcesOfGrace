@@ -40,15 +40,6 @@ namespace AGC {
         protected global::System.Web.UI.WebControls.LinkButton U_Search;
         
         /// <summary>
-        /// panelSchedule control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelSchedule;
-        
-        /// <summary>
         /// gvScheduleSetup control.
         /// </summary>
         /// <remarks>
@@ -67,12 +58,21 @@ namespace AGC {
         protected global::System.Web.UI.WebControls.Label lblMessageSuccess;
         
         /// <summary>
-        /// lblErrorPrompt control.
+        /// lblSuccessMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblErrorPrompt;
+        protected global::System.Web.UI.WebControls.Label lblSuccessMessage;
+        
+        /// <summary>
+        /// lnkCancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkCancel;
     }
 }

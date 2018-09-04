@@ -89,9 +89,9 @@
                          <div class="input-group mb-1">
                
                      <div class="input-group-prepend">
-                <asp:LinkButton runat="server" ID="lnkNew" CssClass="btn btn-outline-primary" OnClick="lnkNew_Click" data-toggle="tooltip" data-placement="bottom" title="Create New Branch"><span class="fas fa-plus"></span> New</asp:LinkButton>
-                </div>
-                  <asp:TextBox runat="server" ID="txtSearchBranch" placeholder="Search Branch" CssClass="form-control text-uppercase"></asp:TextBox>   
+                    <asp:LinkButton runat="server" ID="lnkNew" CssClass="btn btn-outline-primary" OnClick="lnkNew_Click" data-toggle="tooltip" data-placement="bottom" title="Create New Branch"><span class="fas fa-plus"></span> New</asp:LinkButton>
+                    </div>
+                    <asp:TextBox runat="server" ID="txtSearchBranch" placeholder="Search Branch" CssClass="form-control text-uppercase"></asp:TextBox>   
                
                          </div>
                     </div>
