@@ -57,7 +57,7 @@
     </script>
 
      <div class="card">
-        <div class="card-header bg-warning">
+        <div class="card-header">
            <div class="row">
                <div class="col-md-6">
                     <h5><asp:LinkButton runat="server" ID="lnkCancelNewBranch" CssClass="btn btn-outline-danger btn-sm" OnClick="lnkCancelNewBranch_Click"><span class="fas fa-arrow-left"></span></asp:LinkButton> Branch Data</h5>

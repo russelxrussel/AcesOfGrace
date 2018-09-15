@@ -62,7 +62,7 @@
     <!-- Display Gridview List of Items -->
 
           <div class="card">
-                <div class="card-header bg-warning">
+                <div class="card-header">
                      <div class="row">
                  <div class="col-md-6">
              <h5><span class="fas fa-calendar-alt text-primary"></span> Delivery Schedule Setup</h5>

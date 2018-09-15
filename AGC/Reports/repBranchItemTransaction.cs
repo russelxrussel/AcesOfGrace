@@ -16,14 +16,14 @@ namespace AGC.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class repBranchDeliveryReceipt : ReportClass {
+    public class repBranchItemTransaction : ReportClass {
         
-        public repBranchDeliveryReceipt() {
+        public repBranchItemTransaction() {
         }
         
         public override string ResourceName {
             get {
-                return "repBranchDeliveryReceipt.rpt";
+                return "repBranchItemTransaction.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace AGC.Reports {
         
         public override string FullResourceName {
             get {
-                return "AGC.Reports.repBranchDeliveryReceipt.rpt";
+                return "AGC.Reports.repBranchItemTransaction.rpt";
             }
             set {
                 // Do nothing
@@ -106,9 +106,9 @@ namespace AGC.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedrepBranchDeliveryReceipt : Component, ICachedReport {
+    public class CachedrepBranchItemTransaction : Component, ICachedReport {
         
-        public CachedrepBranchDeliveryReceipt() {
+        public CachedrepBranchItemTransaction() {
         }
         
         [Browsable(false)]
@@ -145,7 +145,7 @@ namespace AGC.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            repBranchDeliveryReceipt rpt = new repBranchDeliveryReceipt();
+            repBranchItemTransaction rpt = new repBranchItemTransaction();
             rpt.Site = this.Site;
             return rpt;
         }

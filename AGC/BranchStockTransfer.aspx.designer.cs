@@ -10,7 +10,7 @@
 namespace AGC {
     
     
-    public partial class BranchItemDelivery {
+    public partial class BranchStockTransfer {
         
         /// <summary>
         /// upMain control.
@@ -22,67 +22,13 @@ namespace AGC {
         protected global::System.Web.UI.UpdatePanel upMain;
         
         /// <summary>
-        /// txtDeliveryDate control.
+        /// txtTransferDate control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtDeliveryDate;
-        
-        /// <summary>
-        /// lnkSearchDate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton lnkSearchDate;
-        
-        /// <summary>
-        /// txtSearch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearch;
-        
-        /// <summary>
-        /// U_Search control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton U_Search;
-        
-        /// <summary>
-        /// gvScheduleBranch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvScheduleBranch;
-        
-        /// <summary>
-        /// txtRemarks control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtRemarks;
-        
-        /// <summary>
-        /// lblDeliveryBranchName control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblDeliveryBranchName;
+        protected global::System.Web.UI.WebControls.TextBox txtTransferDate;
         
         /// <summary>
         /// lnkSave control.
@@ -94,13 +40,40 @@ namespace AGC {
         protected global::System.Web.UI.WebControls.LinkButton lnkSave;
         
         /// <summary>
-        /// gvItems control.
+        /// ddSource control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvItems;
+        protected global::System.Web.UI.WebControls.DropDownList ddSource;
+        
+        /// <summary>
+        /// gvItemsSource control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvItemsSource;
+        
+        /// <summary>
+        /// ddDestination control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddDestination;
+        
+        /// <summary>
+        /// gvItemDestination control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvItemDestination;
         
         /// <summary>
         /// lblSuccessMessage control.

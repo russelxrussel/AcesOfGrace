@@ -33,6 +33,25 @@ namespace AGC
         }
 
 
+        public DateTime GET_SERVER_DATE_TIME()
+        {
+            DateTime ServerDT;
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[xSys].[GET_SERVER_DATE_TIME]", cn))
+                {
+
+                    cn.Open();
+
+                    ServerDT = (DateTime)cmd.ExecuteScalar();
+                }
+
+                return ServerDT;
+            }
+        }
+
+
         #region "SERIES NUMBER OF TRANSACTION SECTION"
         /*****  ************/
         public int SERIESNUMBER { get; set; }

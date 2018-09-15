@@ -75,6 +75,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="BranchStockTransfer.aspx" />
+    <Content Include="BranchDeliveryPosting.aspx" />
+    <Content Include="BranchDeliveryAdjustment.aspx" />
+    <Content Include="BranchSales.aspx" />
+    <Content Include="BranchItemReturn.aspx" />
+    <Content Include="InventoryConsumeStock.aspx" />
+    <Content Include="BranchInventoryStock.aspx" />
     <Content Include="BranchItemDelivery.aspx" />
     <Content Include="Content\CheckBStyle.css" />
     <Content Include="packages.config" />
@@ -237,6 +244,55 @@
     <Compile Include="App_Code\cSystem.cs" />
     <Compile Include="App_Code\cTransaction.cs" />
     <Compile Include="App_Code\cUtil.cs" />
+    <Compile Include="BranchStockTransfer.aspx.cs">
+      <DependentUpon>BranchStockTransfer.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BranchStockTransfer.aspx.designer.cs">
+      <DependentUpon>BranchStockTransfer.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BranchDeliveryPosting.aspx.cs">
+      <DependentUpon>BranchDeliveryPosting.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BranchDeliveryPosting.aspx.designer.cs">
+      <DependentUpon>BranchDeliveryPosting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BranchDeliveryAdjustment.aspx.cs">
+      <DependentUpon>BranchDeliveryAdjustment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BranchDeliveryAdjustment.aspx.designer.cs">
+      <DependentUpon>BranchDeliveryAdjustment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BranchSales.aspx.cs">
+      <DependentUpon>BranchSales.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BranchSales.aspx.designer.cs">
+      <DependentUpon>BranchSales.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BranchItemReturn.aspx.cs">
+      <DependentUpon>BranchItemReturn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BranchItemReturn.aspx.designer.cs">
+      <DependentUpon>BranchItemReturn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="InventoryConsumeStock.aspx.cs">
+      <DependentUpon>InventoryConsumeStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="InventoryConsumeStock.aspx.designer.cs">
+      <DependentUpon>InventoryConsumeStock.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="BranchInventoryStock.aspx.cs">
+      <DependentUpon>BranchInventoryStock.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="BranchInventoryStock.aspx.designer.cs">
+      <DependentUpon>BranchInventoryStock.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BranchItemDelivery.aspx.cs">
       <DependentUpon>BranchItemDelivery.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -252,6 +308,12 @@
       <DependentUpon>BranchMaster.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\repBranchItemTransaction.cs">
+      <DependentUpon>repBranchItemTransaction.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\repBranchDeliveryReceipt.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -275,6 +337,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <EmbeddedResource Include="Reports\repBranchItemTransaction.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>repBranchItemTransaction.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reports\repBranchDeliveryReceipt.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>repBranchDeliveryReceipt.cs</LastGenOutput>

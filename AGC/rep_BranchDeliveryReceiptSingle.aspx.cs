@@ -17,7 +17,8 @@ namespace AGC
 
             oReportDocument.Load(Server.MapPath("~/Reports/repBranchDeliveryReceipt.rpt"));
 
-            oReportDocument.SetParameterValue("paramDeliveryNum", Session["G_DRBNUM"].ToString()); // Set Parameter
+            oReportDocument.SetParameterValue("paramBranchCode", Session["G_BRANCHCODE"].ToString()); // Set Parameter
+            oReportDocument.SetParameterValue("paramDeliveryDate", Convert.ToDateTime(Session["G_DELIVERYDATE"]));
             oReportDocument.SetDatabaseLogon("sa", "p@ssw0rd"); // Supply user credentials
             CrystalReportViewer1.ReportSource = oReportDocument;
         }

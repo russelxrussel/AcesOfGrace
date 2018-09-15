@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AGC.Master" AutoEventWireup="true" CodeBehind="BranchItemDelivery.aspx.cs" Inherits="AGC.BranchItemDelivery" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/AGC.Master" AutoEventWireup="true" CodeBehind="BranchItemReturn.aspx.cs" Inherits="AGC.BranchItemReturn" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="headContent" runat="server">
     <style type="text/css">
@@ -24,7 +24,7 @@
             $(function searchInput() {
                 $('[id*=txtSearch]').on("keyup", function () {
                     var value = $(this).val().toLowerCase();
-                    $('[id*=gvScheduleBranch] tr').filter(function () {
+                    $('[id*=gvBranchList] tr').filter(function () {
                         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                     });
                 });
@@ -43,7 +43,7 @@
                         $(function searchInput() {
                             $('[id*=txtSearch]').on("keyup", function () {
                                 var value = $(this).val().toLowerCase();
-                                $('[id*=gvScheduleBranch] tr').filter(function () {
+                                $('[id*=gvBranchList] tr').filter(function () {
                                     $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
                                 });
                             });
@@ -56,7 +56,7 @@
 
 
             <div class="card">
-                <div class="card-header bg-primary"><h5><span class="fas fa-truck text-warning"></span> Branch Item Delivery</h5></div>
+                <div class="card-header bg-info"><h5><span class="fas fa-truck-loading text-warning"></span> Branch Item Return</h5></div>
                 <div class="card-body">
                   
                     <div class="row">
@@ -64,18 +64,14 @@
                            
                             <ul class="list-group">
                                 <li class="list-group-item">
-                                         <div class="input-group mb-3">
-                                        <asp:TextBox runat="server" ID="txtDeliveryDate" CssClass="form-control is-invalid calendarInput" placeholder="Delivery Date"></asp:TextBox>    
-                                        <div class="input-group-append">
+                                     <div class="input-group">
+                                        <asp:TextBox runat="server" ID="txtReturnDate" CssClass="form-control is-invalid calendarInput" placeholder="Return Date"></asp:TextBox>    
+                                        <%--<div class="input-group-append">
                                             <asp:LinkButton runat="server" ID="lnkSearchDate" CssClass="btn btn-outline-primary btn-sm"
-                                                data-toggle="tooltip" data-placement="bottom" title="Delivery Date" OnClick="lnkSearchDate_Click"><span class="fas fa-play-circle"></span></asp:LinkButton>
-                                    </div>
-                                    </div>
-                                   
-
+                                                data-toggle="tooltip" data-placement="bottom" title="Date Usage"><span class="fas fa-play-circle"></span></asp:LinkButton>
+                                    </div>--%>
+                                              </div>
                                 </li>
-                               
-                                    
                                 <li class="list-group-item">
                                      <div class="input-group mb-3">
                                  <asp:TextBox ID="txtSearch" runat="server" CssClass="form-control" placeholder="Search Branch"></asp:TextBox>
@@ -84,25 +80,23 @@
                                          data-toggle="tooltip" data-placement="bottom" title="Find Branch"><span class="fas fa-search"></span> FIND</asp:LinkButton>
                                  </div>
                              </div>
-                        
-                                    <asp:GridView runat="server" ID="gvScheduleBranch" ShowHeader="false" CssClass="table table-sm table-responsive-md table-hover" GridLines="Horizontal" AutoGenerateColumns="false" OnRowCommand="gvScheduleBranch_RowCommand" OnRowDataBound="gvScheduleBranch_RowDataBound">
+                                    <asp:Panel runat="server" ID="panelBranch" Height="600px" ScrollBars="Vertical">
+                                    <asp:GridView runat="server" ID="gvBranchList" ShowHeader="false" CssClass="table table-sm table-responsive-md table-hover" GridLines="Horizontal" AutoGenerateColumns="false" OnRowCommand="gvScheduleBranch_RowCommand">
                                         <Columns>
                                             <asp:BoundField DataField="BranchCode"/>
                                             <asp:BoundField DataField="BranchName" HeaderText="Branch" />
 
                                             <asp:TemplateField>
                                                 <ItemTemplate>
-                                                    <asp:LinkButton runat="server" ID="lnkNewDelivery" CssClass="btn btn-sm btn-outline-primary" CommandName="Select"><span class="fas fa-arrow-alt-circle-right" data-toggle="tooltip" data-placement="top" title="Insert Delivery"></span></asp:LinkButton>
-                                                    <asp:LinkButton runat="server" ID="lnkView" CssClass="btn btn-sm btn-outline-warning" CommandName="View" Visible="false"><span class="fas fa-file-alt" data-toggle="tooltip" data-placement="top" title="View Delivery Details"></span></asp:LinkButton>
-                                                   <%-- <asp:LinkButton runat="server" ID="lnkEditDelivery" CssClass="btn btn-sm btn-outline-primary" CommandName="Edit" Visible="false"><span class="fas fa-pencil-alt" data-toggle="tooltip" data-placement="top" title="Edit Delivery Details"></span></asp:LinkButton>--%>
+                                                 <asp:LinkButton runat="server" ID="lnkInsertQuantity" CssClass="btn btn-sm btn-outline-primary" CommandName="Select"><span class="fas fa-arrow-alt-circle-right" data-toggle="tooltip" data-placement="top" title="Insert Quantity"></span></asp:LinkButton>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
                                            
                                         </Columns>
                                     </asp:GridView>
+                                        </asp:Panel>
                                     </li>
-                               <li class="list-group-item"><asp:TextBox runat="server" ID="txtRemarks" CssClass="form-control" TextMode="MultiLine" Rows="2" placeholder="Type Branch Delivery Remarks"></asp:TextBox></li>
                                  
                                  </ul>
                         </div>
@@ -112,39 +106,53 @@
                         <div class="col-md-7">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                             <asp:Label runat="server" ID="lblDeliveryBranchName"></asp:Label>
-                                        </div>
-                                        <div class="col-md-6 text-right">
-                                            <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-outline-primary btn-sm" OnClick="lnkSave_Click"><span class="fas fa-save"></span> SAVE</asp:LinkButton>
-                                        </div>
-                                    </div>
+                                          <div class="row">
+                                              <div class="col-md-8">
+                                                   <span class="fas fa-store text-warning"></span> <asp:Label runat="server" ID="lblBranchNameStock"></asp:Label>
+                                              </div>
+                                              
+                                                  <div class="col-md-4 text-right">
+                                                <asp:LinkButton runat="server" ID="lnkSave" CssClass="btn btn-outline-primary btn-sm" OnClick="lnkSave_Click"><span class="fas fa-save"></span> SAVE</asp:LinkButton>
+                                             
+                                          </div>
+                                          </div>
+                                          
+                                        
+                                   
                                    </div>
                                 <div class="card-body">
                                     
-                                    <asp:GridView runat="server" ID="gvItems" CssClass="table table-sm table-responsive-md" GridLines="Horizontal" AutoGenerateColumns="false">
+                                    <asp:GridView runat="server" ID="gvItems" CssClass="table table-hover table-sm table-responsive-md" GridLines="Horizontal" AutoGenerateColumns="false">
                                         <Columns>
 
                                             <asp:BoundField DataField="ItemCode" />
-                                            <asp:BoundField DataField="ItemName" HeaderText="Item Name" />
+                                            <asp:BoundField DataField="ItemName" HeaderText="Item" />
 
-                                            <asp:TemplateField ControlStyle-Width="50%" HeaderText="Quantity Delivered">
+                                            <asp:TemplateField ControlStyle-Width="50%" ControlStyle-CssClass="text-center" HeaderText="Return Qty">
                                                 <ItemTemplate>
-                                                    <asp:TextBox runat="server" ID="txtItemQuantity" MaxLength="6" CssClass="form-control text-center" onkeypress="return(event.charCode == 8 || event.charCode == 0) ? 0: event.charCode >= 46 && event.charCode <=57"></asp:TextBox>
+                                                    <asp:TextBox runat="server" ID="txtReturnItem" MaxLength="6" CssClass="form-control text-center" onkeypress="return(event.charCode == 8 || event.charCode == 0) ? 0: event.charCode >= 46 && event.charCode <=57"></asp:TextBox>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
 
-                                            
+                                            <asp:TemplateField ControlStyle-Width="50%" ControlStyle-CssClass="text-center" HeaderText="Available">
+                                                <ItemTemplate>
+                                                    <b><asp:Label runat="server" ID="lblAvailableStock" Text='<%# Eval("tStockBalance") %>'></asp:Label></b>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+
                                         </Columns>
                                     </asp:GridView>
+
+                                    <hr />
+                                    <asp:TextBox runat="server" ID="txtRemarks" CssClass="form-control" TextMode="MultiLine" Rows="2" placeholder="Stock Return Remarks/Notes"></asp:TextBox>
+                                   
                                 </div>
                             </div>
 
                         </div>
 
 
-                    </div>
+                </div>
 
 
                   
@@ -153,29 +161,7 @@
                 </div>
             </div>
 
-             <div class="modal fade bd-example-modal-lg" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="modalSuccessLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-                <div class="modal-content">
-                  <div class="modal-header bg-success">
-                    <h5 class="modal-title" id="modalSuccessLabel"><span class="fas fa-envelope text-warning"></span> Aces of Grace Corporation</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                  <div class="modal-body">
-                   <h5><b><span class="fas fa-check-circle text-success"></span></b> <asp:Label runat="server" ID="lblSuccessMessage"></asp:Label></h5>
-       
-                  </div><!-- End of Modal -->
-                  <div class="modal-footer">
-       
-                        <asp:LinkButton runat="server" ID="LinkButton1" CssClass="btn btn-dark" Text="Close"  data-dismiss="modal"></asp:LinkButton>
-        
-                  </div>
-                    </div>
-                    </div>
-                     </div>
-
-             <div class="modal fade bd-example-modal-lg" id="modalError" tabindex="-1" role="dialog" aria-labelledby="modalSuccessLabel" aria-hidden="true">
+             <div class="modal fade bd-example-modal-lg" id="modalError" tabindex="-1" role="dialog" aria-labelledby="modalErrorLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                 <div class="modal-content">
                   <div class="modal-header bg-danger">
@@ -194,11 +180,29 @@
         
                   </div>
 
-              </div>
-                    </div>
-                 </div>
+                 <div class="modal fade bd-example-modal-lg" id="modalSuccess" tabindex="-1" role="dialog" aria-labelledby="modalSuccessLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header bg-danger">
+                    <h5 class="modal-title" id="modalSuccessLabel"><span class="fas fa-envelope text-warning"></span> Aces of Grace Corporation</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                   <h5><b><span class="fas fa-exclamation-circle text-danger"></span></b> <asp:Label runat="server" ID="lblSuccessMessage"></asp:Label></h5>
+       
+                  </div><!-- End of Modal -->
+                  <div class="modal-footer">
+       
+                        <asp:LinkButton runat="server" ID="LinkButton1" CssClass="btn btn-dark" Text="Close"  data-dismiss="modal"></asp:LinkButton>
+        
+                  </div>
 
-             
+
+
+     
+          
         </ContentTemplate>
     </asp:UpdatePanel>
 </asp:Content>
