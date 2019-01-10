@@ -23,9 +23,7 @@ namespace AGC
             {
                 
                 ViewState["BRANCHCODE"] = "";
-
                 DisplayBranchList();
-
                 txtReturnDate.Text = oSystem.GET_SERVER_DATE_TIME().ToShortDateString();
 
             }
@@ -111,8 +109,6 @@ namespace AGC
 
                     DisplayItems();
 
-                    //Display Usage Stock that already encoded
-                    //DisplayEncodeReturnStock(Convert.ToDateTime(txtReturnDate.Text), ViewState["BRANCHCODE"].ToString());
                 }
                 else
                 {
@@ -128,10 +124,8 @@ namespace AGC
 
         protected void lnkSave_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtReturnDate.Text) || txtReturnDate.Text.Trim().Length != 0 || !string.IsNullOrEmpty(Session["BRANCHCODE"].ToString()))
+            if (!string.IsNullOrEmpty(txtReturnDate.Text) && !string.IsNullOrWhiteSpace(txtReturnDate.Text) && !string.IsNullOrEmpty(ViewState["BRANCHCODE"].ToString()) && !string.IsNullOrWhiteSpace(txtReturnDate.Text))
             {
-                // ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#alertErrorMessage').hide();</script>", false);
-
                 string sBRINUM = oSystem.GENERATE_SERIES_NUMBER_TRANS("BRI");
                 //Save Delivery
                 foreach (GridViewRow row in gvItems.Rows)
@@ -151,15 +145,22 @@ namespace AGC
 
                         if (quantity != 0)
                         {
-
                             oTransaction.INSERT_BRANCH_RETURN_ITEM(ViewState["BRANCHCODE"].ToString(), sBRINUM, Convert.ToDateTime(txtReturnDate.Text), txtRemarks.Text, itemCode, quantity);
                         }
+                    
                     }
                 }
 
-             
+                //Refresh
+                ViewState["BRANCHCODE"] = "";
+                DisplayBranchList();
+                DisplayItems();
+                txtReturnDate.Text = oSystem.GET_SERVER_DATE_TIME().ToShortDateString();
 
-                Response.Redirect(Request.RawUrl);
+
+                //Response.Redirect(Request.RawUrl);
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalSuccess').modal('show');</script>", false);
+                lblSuccessMessage.Text = "Branch returned item successfully process.";
 
             }
             else

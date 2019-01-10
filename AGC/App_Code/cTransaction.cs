@@ -56,6 +56,26 @@ namespace AGC
             return dt;
         }
 
+        public DataTable GET_BRANCH_TOP_SALES(string _itemCode, DateTime _startDate, DateTime _endDate)
+        {
+            DataTable dt = new DataTable();
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+                using (SqlCommand cmd = new SqlCommand("[TRANSACTION].[spGET_TOP_BRANCH_SALES]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.AddWithValue("@ITEMCODE", _itemCode);
+                    cmd.Parameters.AddWithValue("@STARTDATE", _startDate);
+                    cmd.Parameters.AddWithValue("@ENDDATE", _endDate);
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    da.Fill(dt);
+                }
+            }
+
+            return dt;
+        }
+
         public void INSERT_BRANCH_SALES(string _branchCode, string _salesNum, DateTime _salesDate, string _remarks,
                                             string _itemCode, int _quantity)
         {
@@ -91,7 +111,7 @@ namespace AGC
         */
 
 
-        public bool CHECK_EXIST_DELIVERY_ENTRY(DateTime _dateDelivery, string _branchCode) 
+        public bool CHECK_EXIST_DELIVERY_ENTRY(string _branchCode) 
         {
             bool x;
 
@@ -102,7 +122,6 @@ namespace AGC
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("@DELIVERYDATE", _dateDelivery);
                     cmd.Parameters.AddWithValue("@BRANCHCODE", _branchCode);
 
                     cn.Open();
@@ -116,6 +135,8 @@ namespace AGC
           
         }
 
+      
+        
         public DataTable GET_BRANCH_DELIVERY(DateTime _deliveryDate)
         {
             DataTable dt = new DataTable();
@@ -133,6 +154,8 @@ namespace AGC
 
             return dt;
         }
+
+
 
         public DataTable GET_DELIVERY_NOT_YET_POSTED()
         {
@@ -241,6 +264,27 @@ namespace AGC
             }
         }
 
+
+        public void UPDATE_MINIMUM_STOCK_LEVEL(string _branchCode, string _itemCode, int _stockLevel)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[TRANSACTION].[spUPDATE_BRANCH_STOCK_MIN_LEVEL]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@BRANCHCODE", _branchCode);
+                    cmd.Parameters.AddWithValue("@ITEMCODE", _itemCode);
+                    cmd.Parameters.AddWithValue("@STOCKLEVEL", _stockLevel);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
         public void INSERT_BRANCH_RETURN_ITEM(string _branchCode, string _delReturnNum, DateTime _returnDate, string _remarks,
                                           string _itemCode, int _quantity)
         {
@@ -298,6 +342,68 @@ namespace AGC
         }
 
 
+        public bool CHECK_EXIST_STOCK_ADJUSTMENT_ENTRY(string _branchCode)
+        {
+            bool x;
+
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[TRANSACTION].[CHECK_EXIST_BRANCH_STOCK_ADJUSTMENT_ENTRY]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@BRANCHCODE", _branchCode);
+
+                    cn.Open();
+
+                    x = (bool)cmd.ExecuteScalar();
+
+                }
+                return x;
+            }
+
+
+        }
+
+        public DataTable GET_STOCK_ADJUSTMENT_FOR_POSTING()
+        {
+            DataTable dt = new DataTable();
+            dt = queryCommandDT_StoredProc("[TRANSACTION].[spGET_ADJUSTMENT_FOR_POSTING]");
+            return dt;
+        }
+
+        public DataTable GET_STOCK_ADJUSTMENT_ITEM_NOT_YET_POSTED()
+        {
+            DataTable dt = new DataTable();
+            dt = queryCommandDT_StoredProc("[TRANSACTION].[spGET_ADJUSTMENT_NOT_YET_POSTED]");
+            return dt;
+        }
+
+
+
+        public void UPDATE_BRANCH_STOCK_ADJUSTMENT_POSTING(string _adjustmentNum)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[TRANSACTION].[spUPDATE_BRANCH_STOCK_ADJUSTMENT_POSTED]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@ADJUSTMENTNUM", _adjustmentNum);
+                  
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+
         public void INSERT_CONSUME_BRANCH_ITEM(string _branchCode, string _consumeNum, DateTime _consumeDate, string _remarks,
                                             string _itemCode, int _quantity)
         {
@@ -324,6 +430,81 @@ namespace AGC
             }
         }
 
+        public void INSERT_UPDATE_BRANCH_ADJUSTMENT_STOCK(string _branchCode, string _stockAdjustmentNum,string _adjustmentCode, DateTime _adjustmentDate, string _remarks,
+                                           string _itemCode, int _quantity)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[TRANSACTION].[spINSERT_UPDATE_BRANCH_STOCK_ADJUSTMENT]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("@BRANCHCODE", _branchCode);
+                    cmd.Parameters.AddWithValue("@STOCKADJUSTMENTNUM", _stockAdjustmentNum);
+                    cmd.Parameters.AddWithValue("@ADJUSTMENTCODE", _adjustmentCode);
+                    cmd.Parameters.AddWithValue("@ADJUSTMENTDATE", _adjustmentDate);
+                    cmd.Parameters.AddWithValue("@REMARKS", _remarks);
+                    cmd.Parameters.AddWithValue("@ITEMCODE", _itemCode);
+                    cmd.Parameters.AddWithValue("@QUANTITY", _quantity);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+        //CANCEL ADJUSTMENT
+        public void CANCEL_STOCK_ADJUSTMENT(string _adjustmentNum)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[TRANSACTION].[spCANCEL_ADJUSTMENT]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+                    cmd.Parameters.AddWithValue("@STOCKADJUSTMENTNUM", _adjustmentNum);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+        public void INSERT_BRANCH_TRANSFER_INVENTORY(string _branchCodeSource, string _branchCodeDestination, string _transferNum,
+                                                    DateTime _transferDate, string _remarks, string _itemCode, int _quantity)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[TRANSACTION].[spINSERT_BRANCH_TRANSFER]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("BRANCHCODESOURCE", _branchCodeSource);
+                    cmd.Parameters.AddWithValue("BRANCHCODEDESTINATION", _branchCodeDestination);
+                    cmd.Parameters.AddWithValue("@TRANSFERNUM", _transferNum);
+                    cmd.Parameters.AddWithValue("@TRANSFERDATE", _transferDate);
+                    cmd.Parameters.AddWithValue("@REMARKS", _remarks);
+                    cmd.Parameters.AddWithValue("@ITEMCODE", _itemCode);
+                    cmd.Parameters.AddWithValue("@QUANTITY", _quantity);
+
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+            
+        }
 
         #endregion
 

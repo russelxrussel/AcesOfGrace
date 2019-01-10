@@ -23,7 +23,8 @@ namespace AGC
 
 
             var sb2 = new StringBuilder();
-            sb2.Append("<ul  class=\"navbar-nav mr-auto\">");
+            sb2.Append("<ul class=\"navbar-nav\">");
+            //sb2.Append("<ul  class=\"navbar-nav mr-auto\">");
             sb2.Append(unorderelist);
             sb2.Append("</ul>");
             myDiv.InnerHtml = sb2.ToString();
@@ -34,6 +35,7 @@ namespace AGC
             // sb.Append("<ul  class=\"nav navbar-nav\">");
             if (menu.Length > 0)
             {
+                string line = "";
 
                 foreach (DataRow dr in menu)
                 {
@@ -45,49 +47,40 @@ namespace AGC
                     string menuID = dr["MenuID"].ToString();
                     string parentID = dr["ParentMenuID"].ToString();
 
-                    string line;
+
 
                     //Condition will be true if menu have parent.
                     if (flgMenuChild)
+                    {
+                        if (urlPosition == "TOP") //Main Menu
+                        {
+                            line = string.Format(@"<li class=""nav-item dropdown""><a href=""{0}"" class=""nav-link"" data-toggle=""dropdown""> {1} <span class=""fas fa-caret-down""></span></a>", urlText, menuText, @"</li>");
+                        }
+                        //else //SubMenu Children
+                        //{
+                        //    line = string.Format(@"<li class=""nav-item""><a href=""{0}"" class=""dropdown-toggle"" data-toggle=""dropdown""> {1}</a>", urlText, menuText, @"</li>");
+                        //}
+
+
+
+
+                    }
+                    else
                     {
 
                         if (urlPosition == "MID") //Main Menu Children
                         {
 
-                            line = string.Format(@"<li class=""nav-item""><a href=""{0}"" class=""nav-link"" >{1} </a>", urlText, menuText, @"</li>");
-                        }
-
-                        else
-                        {
-
-                            if (urlPosition == "TOP") //Main Menu
-                            {
-                                line = string.Format(@"<li class=""nav-item dropdown""><a href=""{0}"" class=""nav-link"" data-toggle=""dropdown""> {1} <span class=""caret""></span></a>", urlText, menuText, @"</li>");
-                            }
-                            else //SubMenu Children
-                            {
-                                line = string.Format(@"<li class=""nav-item""><a href=""{0}"" class=""dropdown-toggle"" data-toggle=""dropdown""> {1} </a>", urlText, menuText, @"</li>");
-                            }
-
-                        }
-                    }
-
-                    else //No parent link
-                    {
-                        if (menuText == "HOME")
-                        {
-                            line = string.Format(@"<li><a href=""{0}"" class=""dropdown-toggle"" data-toggle=""dropdown""><span class=""glyphicon glyphicon-home""></span> {1}</a>", urlText, menuText, @"</li>");
-                        }
-                        else
-                        {
-                            line = string.Format(@"<li class=""nav-item""><a href=""{0}""><span class=""glyphicon glyphicon-globe""></span>  {1}</a>", urlText, menuText, @"</li>");
+                            line = string.Format(@"<li class=""nav-item""><a href=""{0}"" class=""nav-link""><span class=""fas fa-globe text-primary""></span> {1}</a>", urlText, menuText, @"</li>");
                         }
 
                     }
 
-
-
+                 
                     sb.Append(line);
+
+
+
 
 
 

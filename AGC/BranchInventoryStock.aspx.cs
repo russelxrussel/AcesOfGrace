@@ -41,54 +41,38 @@ namespace AGC
         private void DisplayItems()
         {
             DataTable dt = oTransaction.GET_BRANCH_STOCK(ViewState["BRANCHCODE"].ToString());
-            gvItems.DataSource = dt;
+            if (dt.Rows.Count > 0)
+            {
+                gvItems.DataSource = dt;
+                          }
+            else
+            {
+                gvItems.DataSource = null;
+              
+            }
+
             gvItems.DataBind();
         }
-
-        private void DisplayBranchList()
-        {
-            DataTable dt = oMaster.GET_BRANCH_LIST();
-            gvBranchList.DataSource = dt;
-            gvBranchList.DataBind();
-        }
-
-
-        #endregion
 
        
 
 
-     
-        //Display all branch and identify list of Branch that had been schedule.
-        private void DisplayDeliveredBranch()
+        private void DisplayBranchList()
         {
-            foreach (GridViewRow row in gvBranchList.Rows)
-            {
+            DataTable dt = oMaster.GET_BRANCH_LIST();
 
-                string branchCode = row.Cells[0].Text;
+            ddBranch.DataSource = dt;
+            ddBranch.DataTextField = dt.Columns["BranchName"].ToString();
+            ddBranch.DataValueField = dt.Columns["BranchCode"].ToString();
+            ddBranch.DataBind();
 
-                LinkButton lnkNewDelivery = row.FindControl("lnkNewDelivery") as LinkButton;
-                LinkButton lnkView = row.FindControl("lnkView") as LinkButton;
-
-                ////TextBox txtQuantity = (TextBox)row.Cells[1].FindControl("txtDistrubutedQty");
-                ////TextBox txtDateTrans = (TextBox)row.Cells[2].FindControl("txtDate");
-
-
-                //if (oTransaction.CHECK_EXIST_DELIVERY_ENTRY(Convert.ToDateTime(txtDeliveryDate.Text), branchCode))
-                //{
-                //    lnkNewDelivery.Enabled = false;
-                //    lnkNewDelivery.CssClass = "disabledLink";
-                //    lnkNewDelivery.Visible = false;
-                //    lnkView.Visible = true;
-                //}
-
-
-
-
-            }
+            ddBranch.Items.Insert(0, new ListItem("--Select Branch--"));
         }
 
-        #region "PRINT AREA"
+        #endregion
+
+        
+            #region "PRINT AREA"
         private void PRINT_NOW(string url)
         {
             string s = "window.open('" + url + "', 'popup_window', 'width=1024, height=768, left=0, top=0, resizable=yes');";
@@ -117,13 +101,7 @@ namespace AGC
                 //Display only item assign to this branch or partners
                 //Display_Items();
 
-                ViewState["BRANCHCODE"] = row.Cells[0].Text;
-
-                lblBranchNameStock.Text = "Branch Stock: <b>" + row.Cells[1].Text + "</b>";
-
-                txtSearch.Text = "";
-
-                DisplayItems();
+              
 
 
             }
@@ -137,11 +115,24 @@ namespace AGC
                 
             }
         }
-        
 
-       
+        protected void ddBranch_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
+            if (ddBranch.SelectedIndex != 0)
+            {
+                ViewState["BRANCHCODE"] = ddBranch.SelectedValue;
 
-      
+                DisplayItems();
+
+            }
+            else
+            {
+                ViewState["BRANCHCODE"] = "";
+            }
+           
+            // txtSearch.Text = "";
+
+        }
     }
 }

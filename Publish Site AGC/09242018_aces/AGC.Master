@@ -1,0 +1,67 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AGC.master.cs" Inherits="AGC.AGC" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Aces of Grace Corporation</title>
+
+    
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/jquery-ui.css" rel="stylesheet" />
+    <link href="Content/CheckBStyle.css" rel="stylesheet" />
+
+    <script src="Scripts/jquery-3.3.1.js"></script>
+    <script src="Scripts/jquery-ui-1.12.1.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+
+
+    <asp:ContentPlaceHolder ID="headContent" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <style type="text/css">
+        .content_Position {
+           padding-top: 10px;
+           
+       }
+
+    </style>
+
+  
+
+
+</head>
+<body>
+     <link href="Content/fontawesome-all.css" rel="stylesheet" />
+
+    <form id="form1" runat="server">
+   
+   <%--<div class="container"> --%> 
+        <asp:ScriptManager runat="server" ID="ScriptManager1">
+        </asp:ScriptManager>
+
+       
+ <nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <a class="navbar-brand" href="#"><span class="fab fa-angular text-success"></span></a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myDiv" aria-controls="myDiv" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+     <div id="myDiv" runat="server" class="collapse navbar-collapse">
+ 
+     </div>
+
+</nav>
+      
+        <hr />
+        
+        <asp:ContentPlaceHolder ID="contentPage" runat="server">
+        
+        </asp:ContentPlaceHolder>
+
+ <%-- </div>--%>
+      
+    
+    </form>
+</body>
+</html>

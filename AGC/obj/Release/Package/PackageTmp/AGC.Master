@@ -25,6 +25,26 @@
            
        }
 
+        
+        html {
+        height: 100%;
+        }
+        body {
+            height: 100%;
+            background-size: auto 100%;
+            background-repeat: no-repeat;
+            /*background-image: linear-gradient(to bottom right, skyblue,yellow );  Standard syntax (must be last) */
+             background-image: linear-gradient(to top right, skyblue, lightgreen);
+            /*background-image: url("images/aces_logo_sample.png");*/
+        }
+
+        .bg_form {
+            opacity: .9;
+        }
+
+       .bg_form:hover {
+            opacity: 1;
+       }
     </style>
 
   
@@ -36,13 +56,13 @@
 
     <form id="form1" runat="server">
    
-   <div class="container">  
+   <%--<div class="container"> --%> 
         <asp:ScriptManager runat="server" ID="ScriptManager1">
         </asp:ScriptManager>
 
        
- <nav class="navbar navbar-expand-sm navbar-light">
-  <a class="navbar-brand" href="#"><span class="fas fa-store"></span></a>
+ <nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <a class="navbar-brand" href="Home.aspx"><span class="fab fa-angular text-success"></span></a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#myDiv" aria-controls="myDiv" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -59,7 +79,7 @@
         
         </asp:ContentPlaceHolder>
 
-  </div>
+ <%-- </div>--%>
       
     
     </form>

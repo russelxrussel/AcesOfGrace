@@ -85,6 +85,7 @@ namespace AGC
         {
             GridViewRow row = ((e.CommandSource as LinkButton).NamingContainer as GridViewRow);
 
+
             ViewState["DELIVERYNUM"] = row.Cells[0].Text;
 
             if (e.CommandName == "Post")

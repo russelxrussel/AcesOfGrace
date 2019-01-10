@@ -108,46 +108,41 @@ namespace AGC
                 //2nd level of filter not same source and destination
                 if (ddSource.SelectedValue != ddDestination.SelectedValue)
                 {
+                    string transferNum = oSystem.GENERATE_SERIES_NUMBER_TRANS("BIT");
+                    foreach (GridViewRow row in gvItemsSource.Rows)
+                    {
+                        string itemCode = row.Cells[0].Text;
+                        TextBox txtQty = row.FindControl("txtTransferQty") as TextBox;
 
+                        int QtyTransfer = 0;
+
+                        if (!string.IsNullOrEmpty(txtQty.Text) || !string.IsNullOrWhiteSpace(txtQty.Text))
+                        {
+                            QtyTransfer = Convert.ToInt32(txtQty.Text);
+
+                            oTransaction.INSERT_BRANCH_TRANSFER_INVENTORY(ddSource.SelectedValue, ddDestination.SelectedValue,
+                                                                      transferNum, Convert.ToDateTime(txtTransferDate.Text), "", itemCode, QtyTransfer);
+
+                        }
+
+
+
+                    }
+
+                    //Refresh record.
+                    DisplayBranchList();
+                    DisplayBranchItemsSource(ddSource.SelectedValue);
+                    DisplayBranchItemsDestination(ddDestination.SelectedValue);
+
+                    ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalSuccess').modal('show');</script>", false);
+                    lblSuccessMessage.Text = "Branch Inventory successfully transferred.";
                 }
                 else
                 {
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalError').modal('show');</script>", false);
                     lblErrorMessage.Text = "The same Source and Destination Branch is not allowed.";
                 }
-                // ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#alertErrorMessage').hide();</script>", false);
-
-                //string sBRINUM = oSystem.GENERATE_SERIES_NUMBER_TRANS("BRI");
-                //Save Delivery
-                //foreach (GridViewRow row in gvDRList.Rows)
-                //{
-                //    if (row.RowType == DataControlRowType.DataRow)
-                //    {
-                //        string deliveryNum = row.Cells[0].Text;
-                //        string itemCode = row.Cells[1].Text;
-
-                //        TextBox txtQuantity = (TextBox)row.Cells[3].FindControl("txtDeliveryQty");
-
-                //        int quantity;
-                //        if (string.IsNullOrEmpty(txtQuantity.Text))
-                //        { quantity = 0; }
-                //        else
-                //        {
-                //            quantity = Convert.ToInt32(txtQuantity.Text);
-                //        }
-
-                //        if (quantity != 0)
-                //        {
-                //            oTransaction.UPDATE_DELIVERY_ADJUSTMENT(deliveryNum, itemCode, quantity);
-                //        }
-                //    }
-                //}
-
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalSuccess').modal('show');</script>", false);
-                //lblSuccessMessage.Text = "Adjustment successfully updated.";
-
-
-                // Response.Redirect(Request.RawUrl);
+               
 
             }
             else
@@ -160,7 +155,32 @@ namespace AGC
             }
         }
 
-        protected void ddSource_SelectedIndexChanged(object sender, EventArgs e)
+       
+
+        protected void gvItemsSource_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            foreach (GridViewRow row in gvItemsSource.Rows)
+            {
+
+                int iAvailableQty = Convert.ToInt32(row.Cells[2].Text);
+                TextBox txtQty = row.FindControl("txtTransferQty") as TextBox;
+
+
+                //Validate if the branch available quantity is not zero
+                if (iAvailableQty > 0)
+                {
+                    txtQty.Enabled = true;
+                }
+                else
+                {
+                    txtQty.Enabled = false;
+                }
+
+
+            }
+        }
+
+    protected void ddSource_SelectedIndexChanged(object sender, EventArgs e)
         {
             DisplayBranchItemsSource(ddSource.SelectedValue.ToString());
         }

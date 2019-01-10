@@ -123,14 +123,7 @@ namespace AGC
 
             }
 
-            //if (e.CommandName == "View")
-            //{
-            //    Session["G_BRANCHCODE"] = row.Cells[0].Text;
-            //   // Session["G_DELIVERYDATE"] = Convert.ToDateTime(txtDeliveryDate.Text);
-            //    //Display
-            //    PRINT_NOW("rep_BranchDeliveryReceiptSingle.aspx");
-                
-            //}
+         
         }
 
         protected void lnkSave_Click(object sender, EventArgs e)
@@ -169,7 +162,7 @@ namespace AGC
                 //Session["G_DRBNUM"] = sDRNUM;
 
                 //UPDATE SERIES NUMBER
-                oSystem.UPDATE_SERIES_NUMBER("ICB");
+                //oSystem.UPDATE_SERIES_NUMBER("ICB");
 
 
                 //Clear
@@ -181,10 +174,11 @@ namespace AGC
 
                 //PRINT_NOW("rep_BranchDeliveryReceiptSingle.aspx");
 
-                //ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalSuccess').modal('show');</script>", false);
-                //lblSuccessMessage.Text = "Branch Stock updated.";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalSuccess').modal('show');</script>", false);
+                lblSuccessMessage.Text = "Branch Stock updated.";
 
-                Response.Redirect(Request.RawUrl);
+                DisplayEncodeUsageStock(Convert.ToDateTime(txtConsumeDate.Text), ViewState["BRANCHCODE"].ToString());
+                //Response.Redirect(Request.RawUrl);
 
             }
             else

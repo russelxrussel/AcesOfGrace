@@ -1,0 +1,3 @@
+• Remarks on Branch Stock Transfer
+• Stock Operation Usage,Branch Delivery Adjustment and Branch Item Return Textbox format.
+• Stock IN error in stock usage module.

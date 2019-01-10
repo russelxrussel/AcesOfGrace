@@ -85,6 +85,15 @@ namespace AGC {
         protected global::System.Web.UI.WebControls.Label lblDeliveryBranchName;
         
         /// <summary>
+        /// lnkViewPendingDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lnkViewPendingDelivery;
+        
+        /// <summary>
         /// lnkSave control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,33 @@ namespace AGC {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvItems;
+        
+        /// <summary>
+        /// lblBranchNameDelivery control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblBranchNameDelivery;
+        
+        /// <summary>
+        /// gvDeliveryForPosting control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView gvDeliveryForPosting;
+        
+        /// <summary>
+        /// LinkButton2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton2;
         
         /// <summary>
         /// lblSuccessMessage control.

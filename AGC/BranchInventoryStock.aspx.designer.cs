@@ -22,49 +22,13 @@ namespace AGC {
         protected global::System.Web.UI.UpdatePanel upMain;
         
         /// <summary>
-        /// txtSearch control.
+        /// ddBranch control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSearch;
-        
-        /// <summary>
-        /// U_Search control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton U_Search;
-        
-        /// <summary>
-        /// panelBranch control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel panelBranch;
-        
-        /// <summary>
-        /// gvBranchList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView gvBranchList;
-        
-        /// <summary>
-        /// lblBranchNameStock control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblBranchNameStock;
+        protected global::System.Web.UI.WebControls.DropDownList ddBranch;
         
         /// <summary>
         /// gvItems control.

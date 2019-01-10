@@ -22,12 +22,6 @@ namespace AGC
             if (!Page.IsPostBack)
             {
 
-                //Hide Div with Error Message
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#alertErrorMessage').hide();</script>", false);
-
-                //txtRemarks.Text = oSystem.GENERATE_SERIES_NUMBER_TRANS("DRB");
-                //Prompt Success Message with print option.
-
                 txtDeliveryDate.Text = oSystem.GET_SERVER_DATE_TIME().ToShortDateString();
 
                 DisplayBranchDeliverySchedule(Convert.ToDateTime(txtDeliveryDate.Text));
@@ -36,8 +30,7 @@ namespace AGC
 
             }
 
-            // ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalPrint2').modal('show');</script>", false);
-
+      
         }
 
 
@@ -53,34 +46,21 @@ namespace AGC
             gvItems.DataSource = dt;
             gvItems.DataBind();
 
-            DisplayDeliveredBranch();
+//            DisplayDeliveredBranch();
 
 
         }
 
-        //private void Display_Items_Edit(DateTime _deliveryDate, string _branchCode)
-        //{
-        //    DataTable dt = oTransaction.GET_BRANCH_DELIVERY(_deliveryDate);
-        //    DataView dv = dt.DefaultView;
-
-        //    dv.RowFilter = "deliveryDate ='" + _deliveryDate + "' and branchCode ='" + _branchCode + "'";
-
-        //    gvItems.DataSource = dv;
-        //    gvItems.DataBind();
-            
-        //}
-
+     
 
         #endregion
 
         protected void lnkSave_Click(object sender, EventArgs e)
         {
             
-            if (!string.IsNullOrEmpty(txtDeliveryDate.Text) || txtDeliveryDate.Text.Trim().Length != 0 || !string.IsNullOrEmpty(Session["BRANCHCODE"].ToString()))
+            if (!string.IsNullOrEmpty(txtDeliveryDate.Text) && !string.IsNullOrWhiteSpace(txtDeliveryDate.Text) && !string.IsNullOrEmpty(ViewState["BRANCHCODE"].ToString()))
             {
-               // ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#alertErrorMessage').hide();</script>", false);
-
-                string sDRNUM = oSystem.GENERATE_SERIES_NUMBER_TRANS("DRB");
+                  string sDRNUM = oSystem.GENERATE_SERIES_NUMBER_TRANS("DRB");
                 //Save Delivery
                 foreach (GridViewRow row in gvItems.Rows)
                 {
@@ -109,7 +89,7 @@ namespace AGC
                 //Session["G_DRBNUM"] = sDRNUM;
 
                 //UPDATE SERIES NUMBER
-                oSystem.UPDATE_SERIES_NUMBER("DRB");
+                //oSystem.UPDATE_SERIES_NUMBER("DRB");
 
 
                 //Clear
@@ -181,31 +161,31 @@ namespace AGC
         }
 
         //Display all branch and identify list of Branch that had been schedule.
-        private void DisplayDeliveredBranch()
-        {
-            foreach (GridViewRow row in gvScheduleBranch.Rows)
-            {
+        //private void DisplayDeliveredBranch()
+        //{
+        //    foreach (GridViewRow row in gvScheduleBranch.Rows)
+        //    {
 
-                string branchCode = row.Cells[0].Text;
+        //        string branchCode = row.Cells[0].Text;
 
-                LinkButton lnkNewDelivery = row.FindControl("lnkNewDelivery") as LinkButton;
-                LinkButton lnkView = row.FindControl("lnkView") as LinkButton;
+        //        LinkButton lnkNewDelivery = row.FindControl("lnkNewDelivery") as LinkButton;
+        //        LinkButton lnkView = row.FindControl("lnkView") as LinkButton;
           
 
-                if (oTransaction.CHECK_EXIST_DELIVERY_ENTRY(Convert.ToDateTime(txtDeliveryDate.Text), branchCode))
-                {
-                    lnkNewDelivery.Enabled = false;
-                    lnkNewDelivery.CssClass = "disabledLink";
-                    lnkNewDelivery.Visible = false;
-                    lnkView.Visible = true;
-                    //lnkEditDelivery.Visible = true;
-                }
+        //        if (oTransaction.CHECK_EXIST_DELIVERY_ENTRY(Convert.ToDateTime(txtDeliveryDate.Text), branchCode))
+        //        {
+        //            lnkNewDelivery.Enabled = false;
+        //            lnkNewDelivery.CssClass = "disabledLink";
+        //            lnkNewDelivery.Visible = false;
+        //            lnkView.Visible = true;
+        //            //lnkEditDelivery.Visible = true;
+        //        }
 
 
 
 
-            }
-        }
+        //    }
+        //}
 
         #region "PRINT AREA"
         private void PRINT_NOW(string url)
@@ -239,9 +219,25 @@ namespace AGC
 
                 ViewState["BRANCHCODE"] = row.Cells[0].Text;
 
+                ViewState["BRANCHNAME"] = row.Cells[1].Text;
+
                 lblDeliveryBranchName.Text = "Delivery to " + "<b>" + row.Cells[1].Text + "</b>";
 
                 txtSearch.Text = "";
+
+
+                if (oTransaction.CHECK_EXIST_DELIVERY_ENTRY(ViewState["BRANCHCODE"].ToString()))
+                {
+                    //lnkNewDelivery.Enabled = false;
+                    //lnkNewDelivery.CssClass = "disabledLink";
+                    //lnkNewDelivery.Visible = false;
+                    //lnkView.Visible = true;
+                    //lnkEditDelivery.Visible = true;
+                    lnkViewPendingDelivery.Visible = true;
+                }
+                else {
+                    lnkViewPendingDelivery.Visible = false;
+                }
 
             }
 
@@ -278,12 +274,25 @@ namespace AGC
         protected void gvScheduleBranch_RowDataBound(object sender, GridViewRowEventArgs e)
         {
 
-            DisplayDeliveredBranch();
+        //    DisplayDeliveredBranch();
 
         }
 
-
-
       
+
+        protected void lnkViewPendingDelivery_Click(object sender, EventArgs e)
+        {
+            DataTable dt = oTransaction.GET_DELIVERY_FOR_POSTING();
+            DataView dv = dt.DefaultView;
+
+            dv.RowFilter = "branchCode = '" + ViewState["BRANCHCODE"].ToString() + "'";
+
+            gvDeliveryForPosting.DataSource = dv;
+            gvDeliveryForPosting.DataBind();
+
+            lblBranchNameDelivery.Text = ViewState["BRANCHNAME"].ToString();
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "msg", "<script>$('#modalDeliveryForPosting').modal('show');</script>", false);
+        }
     }
 }

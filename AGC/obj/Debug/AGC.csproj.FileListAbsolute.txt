@@ -72,3 +72,4 @@ D:\DGMU_System_Collection\AcesOfGrace\AGC\bin\stdole.dll
 D:\DGMU_System_Collection\AcesOfGrace\AGC\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\DGMU_System_Collection\AcesOfGrace\AGC\obj\Debug\AGC.dll
 D:\DGMU_System_Collection\AcesOfGrace\AGC\obj\Debug\AGC.pdb
+D:\DGMU_System_Collection\AcesOfGrace\AGC\obj\Debug\AGC.csprojResolveAssemblyReference.cache

@@ -45,6 +45,37 @@ namespace AGC
         #region "CREATE - UPDATE"
 
         /*
+        INSERT - UPDATE ITEM
+            */
+
+        public void INSERT_UPDATE_ITEM(string _itemCode, string _itemName, string _itemCategoryCode, string _itemInventoryCode,
+                                       string _statusCode, string _payAccCode, DateTime _dateUpdate)
+        {
+            using (SqlConnection cn = new SqlConnection(CS))
+            {
+
+                using (SqlCommand cmd = new SqlCommand("[MASTER].[spINSERT_UPDATE_ITEM]", cn))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+
+
+                    cmd.Parameters.AddWithValue("@ITEMCODE", _itemCode);
+                    cmd.Parameters.AddWithValue("@ITEMNAME", _itemName);
+                    cmd.Parameters.AddWithValue("@ITEMCATEGORYCODE", _itemCategoryCode);
+                    cmd.Parameters.AddWithValue("@ITEMUOMINVENTORY", _itemInventoryCode);
+                    cmd.Parameters.AddWithValue("@STATUSCODE", _statusCode);
+                    cmd.Parameters.AddWithValue("@PAYACCCODE", _payAccCode);
+                    cmd.Parameters.AddWithValue("@DU", _dateUpdate);
+                    cn.Open();
+
+                    cmd.ExecuteNonQuery();
+
+                }
+            }
+        }
+
+
+        /*
          INSERT - UPDATE OF NEW BRANCH INFORMATION
             */
         public void INSERT_BRANCH(string _branchCode, string _branchName, string _branchAddress,string _branchContactNumbers, 
